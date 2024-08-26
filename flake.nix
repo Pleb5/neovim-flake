@@ -253,8 +253,11 @@
         # Code highlighting and indentation(All grammars enabled by default)
         plugins.treesitter = {
             enable = true;
-            indent = true;
             folding = false;
+            settings = {
+                indent.enable = true;
+                highlight.enable = true;
+            };
         };
 
         # plugins.ts-autotag = {
@@ -405,7 +408,7 @@
                 jsonls.enable = true;
                 lua-ls.enable = true;
                 metals.enable = true;
-                nil_ls.enable = true;
+                nil-ls.enable = true;
                 pylsp.enable = true;
                 pyright.enable = true;
                 rnix-lsp.enable = true;
@@ -420,7 +423,7 @@
                 terraformls.enable = true;
                 texlab.enable = true;
                 tsserver.enable = true;
-                typst-lsp.enable = true;
+                # typst-lsp.enable = true; // broken, disable
                 vuels.enable = true;
                 yamlls.enable = true;
                 zls.enable = true;

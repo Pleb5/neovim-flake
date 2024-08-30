@@ -7,7 +7,7 @@
     nixvim.url = "github:nix-community/nixvim";
   };
 
-  outputs = { self, nixpkgs, flake-utils, nixvim }:
+  outputs = { self, flake-utils, nixvim }:
 
     let
         # Configure Neovim
@@ -359,6 +359,10 @@
             showMessage = true;
             inputBufferType = null;
             postHook = null;
+        };
+
+        plugins.spectre = {
+            enable = true;
         };
         
         # Auto comments

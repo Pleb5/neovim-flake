@@ -7,7 +7,7 @@
     nixvim.url = "github:nix-community/nixvim";
   };
 
-  outputs = { self, flake-utils, nixvim }:
+  outputs = { self, nixpkgs, flake-utils, nixvim }:
 
     let
         # Configure Neovim

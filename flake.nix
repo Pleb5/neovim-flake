@@ -401,7 +401,6 @@
                 clojure-lsp.enable = true;
                 cssls.enable = true;
                 dartls.enable = true;
-                denols.enable = true;
                 eslint.enable = true;
                 svelte.enable = true;
                 elixirls.enable = true;

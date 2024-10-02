@@ -49,7 +49,31 @@
             # My keymap
 
             # Normal mode
-            
+            # Current Window width - or +
+            # Horizontally
+            {
+                mode = "n";
+                key = "-";
+                action = "<C-w><";
+            }
+
+            {
+                mode = "n";
+                key = "+";
+                action = "<C-w>>";
+            }
+            # Vertically
+            {
+                mode = "v";
+                key = "-";
+                action = "<cmd>res -1<CR>";
+            }
+            {
+                mode = "v";
+                key = "+";
+                action = "<cmd>res +1<CR>";
+            }
+
             # jump half a page and stay in the middle of the screen
             {
                 mode = "n";
@@ -92,7 +116,6 @@
                 key = "<leader>O";
                 action = "O<Esc>";
             }
-
 
             {
                 mode = "n";
@@ -155,7 +178,7 @@
             { 
                 mode = "n";
                 key = "<leader>xx";
-                action = "<cmd>TroubleToggle<CR>";
+                action = "<cmd>Trouble<CR>";
             }
 
             {
@@ -308,7 +331,6 @@
             enable = true;
 
             keymaps = {
-            #	"<leader>fg" = "live_grep"; <--- this requires ripgrep(not available as a module in nixvim for now)
                 "<leader>ff" = "find_files";
                 "<leader>fb" = "buffers";
                 "<leader>fg" = "live_grep";

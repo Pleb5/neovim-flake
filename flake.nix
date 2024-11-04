@@ -123,7 +123,6 @@
                 action = "\"_d";
             }
 
-
             {
                 mode = "n";
                 key = "Q";
@@ -148,30 +147,18 @@
                 action = "function() vim.lsp.buf.format() end)";
             }
 
+                    # diagnostic go to next
             {
                 mode = "n";
                 key = "<leader>k";
-                action = "<cmd>lnext<CR>zz";
+                action = "<cmd>lua vim.diagnostic.goto_next()<CR>zz";
             }
 
+                    # diagnostic go to prev
             {
                 mode = "n";
                 key = "<leader>j";
-                action = "<cmd>lprev<CR>zz";
-            }
-
-            # diagnostic go to next
-            {
-                mode = "n";
-                key = "<C-j>";
-                action = "<cmd>cnext<CR>zz";
-            }
-
-            # diagnostic go to prev
-            { 
-                mode = "n";
-                key = "<C-k>";
-                action = "<cmd>cprev<CR>zz";
+                action = "<cmd>lua vim.diagnostic.goto_prev()<CR>zz";
             }
 
             # diagnostic open float

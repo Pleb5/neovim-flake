@@ -174,7 +174,21 @@
                 action = "<cmd>cprev<CR>zz";
             }
 
+            # diagnostic open float
+            { 
+                mode = "n";
+                key = "<leader>e";
+                action = "<cmd>lua vim.diagnostic.open_float()<CR>";
+            }
+
+
             # toggle Trouble
+            { 
+                mode = "n";
+                key = "<leader>xd";
+                action = "<cmd>Trouble diagnostics toggle<CR>";
+            }
+
             { 
                 mode = "n";
                 key = "<leader>xx";

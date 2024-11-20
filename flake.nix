@@ -272,6 +272,7 @@
             disableNetrw = true;
             openOnSetup = true;
             tab.sync.open = true;
+            git.ignore = false;
         };
 
         # Code highlighting and indentation(All grammars enabled by default)

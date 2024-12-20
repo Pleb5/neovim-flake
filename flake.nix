@@ -49,7 +49,31 @@
             # My keymap
 
             # Normal mode
-            
+            # Current Window width - or +
+            # Horizontally
+            {
+                mode = "n";
+                key = "-";
+                action = "<C-w><";
+            }
+
+            {
+                mode = "n";
+                key = "+";
+                action = "<C-w>>";
+            }
+            # Vertically
+            {
+                mode = "v";
+                key = "-";
+                action = "<cmd>res -1<CR>";
+            }
+            {
+                mode = "v";
+                key = "+";
+                action = "<cmd>res +1<CR>";
+            }
+
             # jump half a page and stay in the middle of the screen
             {
                 mode = "n";
@@ -93,13 +117,11 @@
                 action = "O<Esc>";
             }
 
-
             {
                 mode = "n";
                 key = "<leader>d";
                 action = "\"_d";
             }
-
 
             {
                 mode = "n";
@@ -125,37 +147,39 @@
                 action = "function() vim.lsp.buf.format() end)";
             }
 
+                    # diagnostic go to next
             {
                 mode = "n";
                 key = "<leader>k";
-                action = "<cmd>lnext<CR>zz";
+                action = "<cmd>lua vim.diagnostic.goto_next()<CR>zz";
             }
 
+                    # diagnostic go to prev
             {
                 mode = "n";
                 key = "<leader>j";
-                action = "<cmd>lprev<CR>zz";
+                action = "<cmd>lua vim.diagnostic.goto_prev()<CR>zz";
             }
 
-            # diagnostic go to next
-            {
-                mode = "n";
-                key = "<C-j>";
-                action = "<cmd>cnext<CR>zz";
-            }
-
-            # diagnostic go to prev
+            # diagnostic open float
             { 
                 mode = "n";
-                key = "<C-k>";
-                action = "<cmd>cprev<CR>zz";
+                key = "<leader>e";
+                action = "<cmd>lua vim.diagnostic.open_float()<CR>";
             }
+
 
             # toggle Trouble
             { 
                 mode = "n";
+                key = "<leader>xd";
+                action = "<cmd>Trouble diagnostics toggle<CR>";
+            }
+
+            { 
+                mode = "n";
                 key = "<leader>xx";
-                action = "<cmd>TroubleToggle<CR>";
+                action = "<cmd>Trouble<CR>";
             }
 
             {
@@ -250,6 +274,7 @@
             disableNetrw = true;
             openOnSetup = true;
             tab.sync.open = true;
+            git.ignore = false;
         };
 
         # Code highlighting and indentation(All grammars enabled by default)
@@ -310,7 +335,6 @@
             enable = true;
 
             keymaps = {
-            #	"<leader>fg" = "live_grep"; <--- this requires ripgrep(not available as a module in nixvim for now)
                 "<leader>ff" = "find_files";
                 "<leader>fb" = "buffers";
                 "<leader>fg" = "live_grep";
@@ -403,7 +427,6 @@
                 clojure-lsp.enable = true;
                 cssls.enable = true;
                 dartls.enable = true;
-                denols.enable = true;
                 eslint.enable = true;
                 svelte.enable = true;
                 elixirls.enable = true;

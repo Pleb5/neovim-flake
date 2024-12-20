@@ -242,6 +242,8 @@
         
         plugins.lightline.enable = true;
 
+        plugins.indent-blankline.enable = true;
+
         # File Tree plugin
         plugins.nvim-tree = {
             enable = true;

@@ -161,6 +161,20 @@
                 action = "<cmd>lua vim.diagnostic.goto_prev()<CR>zz";
             }
 
+            # go to next location after gD
+            {
+                mode = "n";
+                key = "<C-j>";
+                action = "<cmd>cnext<CR>zz";
+            }
+
+            # go to prev location after gD
+            { 
+                mode = "n";
+                key = "<C-k>";
+                action = "<cmd>cprev<CR>zz";
+             }
+
             # diagnostic open float
             { 
                 mode = "n";

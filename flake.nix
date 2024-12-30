@@ -437,44 +437,40 @@
             servers = {
                 astro.enable = true;
                 bashls.enable = true;
+                cmake.enable = true;
                 clangd.enable = true;
-                clojure-lsp.enable = true;
+                clojure_lsp.enable = true;
                 cssls.enable = true;
                 dartls.enable = true;
                 eslint.enable = true;
                 svelte.enable = true;
                 elixirls.enable = true;
-                futhark-lsp.enable = true;
+                futhark_lsp.enable = true;
                 gopls.enable = true;
                 hls.enable = true;
+                hls.installGhc = true;
                 html.enable = true;
                 jsonls.enable = true;
-                lua-ls.enable = true;
+                lua_ls.enable = true;
                 metals.enable = true;
-                nil-ls.enable = true;
+                nil_ls.enable = true;
                 pylsp.enable = true;
                 pyright.enable = true;
-                ruff-lsp.enable = true;
-                rust-analyzer = {
-                    enable = true;
-                    installRustc = true;
-                    installCargo = true;
-                };
+                ruff_lsp.enable = true;
                 # sourcekit.enable = true;
                 tailwindcss.enable = true;
                 terraformls.enable = true;
                 texlab.enable = true;
-                tsserver.enable = true;
+                ts_ls.enable = true;
                 # typst-lsp.enable = true; // broken, disable
-                vuels.enable = true;
                 yamlls.enable = true;
                 zls.enable = true;
             };
             
         }; 
 
-        #Rust tools to make use of LSP for rust
-        plugins.rust-tools.enable = true;
+        # To make use of LSP for rust
+        plugins.rustaceanvim.enable = true;
 
         # Auto-completion
         plugins.luasnip = {
@@ -555,6 +551,8 @@
         plugins.trouble = {
             enable = true;
         };
+
+        plugins.web-devicons.enable = true;
 
         /*
         plugins.coq-nvim = {

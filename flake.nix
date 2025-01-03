@@ -456,7 +456,7 @@
                 nil_ls.enable = true;
                 pylsp.enable = true;
                 pyright.enable = true;
-                ruff_lsp.enable = true;
+                ruff.enable = true;
                 # sourcekit.enable = true;
                 tailwindcss.enable = true;
                 terraformls.enable = true;

@@ -11,6 +11,9 @@
 
     let
         # Configure Neovim
+        tab_spaces = builtins.getEnv "TABSPACES";
+        tab_spaces_value = if tab_spaces == "" then 4 else builtins.fromJSON tab_spaces;
+
         config = {
         
         globals.mapleader = " ";
@@ -32,9 +35,10 @@
             scrolloff = 8;
 
             # Tabs
-            shiftwidth = 4;
-            tabstop = 4;
-            softtabstop = 4;
+
+            shiftwidth = tab_spaces_value;
+            tabstop = tab_spaces_value;
+            softtabstop = tab_spaces_value;
             expandtab = true;
 
             clipboard = "unnamedplus";

@@ -11,9 +11,6 @@
 
     let
         # Configure Neovim
-        tab_spaces = builtins.getEnv "TABSPACES";
-        tab_spaces_value = if tab_spaces == "" then 4 else builtins.fromJSON tab_spaces;
-
         config = {
         
         globals.mapleader = " ";
@@ -36,9 +33,9 @@
 
             # Tabs
 
-            shiftwidth = tab_spaces_value;
-            tabstop = tab_spaces_value;
-            softtabstop = tab_spaces_value;
+            shiftwidth = 4;
+            tabstop = 4;
+            softtabstop = 4;
             expandtab = true;
 
             clipboard = "unnamedplus";
@@ -397,12 +394,14 @@
 
         plugins.inc-rename = {
             enable = true;
-            cmdName = "IncRename";
-            hlGroup = "Substitute";
-            previewEmptyName = false;
-            showMessage = true;
-            inputBufferType = null;
-            postHook = null;
+            settings = {
+                cmdName = "IncRename";
+                hlGroup = "Substitute";
+                previewEmptyName = false;
+                showMessage = true;
+                inputBufferType = null;
+                postHook = null;
+            };
         };
 
         plugins.spectre = {

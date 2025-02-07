@@ -438,34 +438,23 @@
             };
 
             servers = {
-                astro.enable = true;
                 bashls.enable = true;
                 cmake.enable = true;
                 clangd.enable = true;
-                clojure_lsp.enable = true;
                 cssls.enable = true;
-                dartls.enable = true;
                 eslint.enable = true;
                 svelte.enable = true;
-                elixirls.enable = true;
-                futhark_lsp.enable = true;
                 gopls.enable = true;
-                hls.enable = true;
-                hls.installGhc = true;
                 html.enable = true;
                 jsonls.enable = true;
                 lua_ls.enable = true;
-                metals.enable = true;
                 nil_ls.enable = true;
                 pylsp.enable = true;
                 pyright.enable = true;
                 ruff.enable = true;
-                # sourcekit.enable = true;
                 tailwindcss.enable = true;
-                terraformls.enable = true;
                 texlab.enable = true;
                 ts_ls.enable = true;
-                # typst-lsp.enable = true; // broken, disable
                 yamlls.enable = true;
                 zls.enable = true;
             };

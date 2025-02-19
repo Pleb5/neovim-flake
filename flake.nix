@@ -174,7 +174,15 @@
                 mode = "n";
                 key = "<C-k>";
                 action = "<cmd>cprev<CR>zz";
-             }
+            }
+            
+            # jump to location(quickfix error item like a Glog commit or a diagnostic item) under cursor
+            { 
+                mode = "n";
+                key = "<C-l>";
+                action = "<cmd>execute 'cc ' . line('.')<CR>zz";
+            }
+
 
             # diagnostic open float
             { 
@@ -183,6 +191,25 @@
                 action = "<cmd>lua vim.diagnostic.open_float()<CR>";
             }
 
+            # In insert-and-command-line mode this pastes text from register "
+            { 
+                mode = "!";
+                key = "<leader>p";
+                action = "<C-R><C-\">";
+            }
+
+            # In insert-and-command-line mode this pastes text from register "
+            { 
+                mode = "!";
+                key = "<leader>P";
+                action = "<C-R>+";
+            }
+
+            { 
+                mode = "t";
+                key = "<leader>j";
+                action = "<C-\\><C-n>";
+            }
 
             # toggle Trouble
             { 

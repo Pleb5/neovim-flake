@@ -444,6 +444,7 @@
         };
 
         # Language Server Protocol
+        plugins.efmls-configs.enable = true;
         plugins.lsp = {
             enable = true;
 
@@ -465,23 +466,24 @@
             };
 
             servers = {
-                bashls.enable = true;
-                cmake.enable = true;
-                clangd.enable = true;
-                cssls.enable = true;
-                eslint.enable = true;
+                # eslint.enable = true;
+                # html.enable = true;
+                # jsonls.enable = true;
+                # cssls.enable = true;
+                ts_ls.enable = true;
+                tailwindcss.enable = true;
                 svelte.enable = true;
+
                 gopls.enable = true;
-                html.enable = true;
-                jsonls.enable = true;
                 lua_ls.enable = true;
                 nil_ls.enable = true;
                 pylsp.enable = true;
                 pyright.enable = true;
                 ruff.enable = true;
-                tailwindcss.enable = true;
+                bashls.enable = true;
+                cmake.enable = true;
+                clangd.enable = true;
                 texlab.enable = true;
-                ts_ls.enable = true;
                 yamlls.enable = true;
                 zls.enable = true;
             };

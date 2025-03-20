@@ -263,6 +263,16 @@
                     noremap = true;
                 };
             }
+            # NvimTreeFindFile
+            {
+                mode = "n";
+                key = "<leader>f";
+                action = "<cmd>NvimTreeFindFile<CR>";
+                options = {
+                    silent = true;
+                    noremap = true;
+                };
+            }
 
     # ----------------------------------------------------------------
 

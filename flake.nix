@@ -194,14 +194,14 @@
             # In insert-and-command-line mode this pastes text from register "
             { 
                 mode = "!";
-                key = "<leader>p";
+                key = "<C-b>";
                 action = "<C-R><C-\">";
             }
 
-            # In insert-and-command-line mode this pastes text from register "
+            # In command-line mode this pastes text from register +
             { 
-                mode = "!";
-                key = "<leader>P";
+                mode = "c";
+                key = "<C-v>";
                 action = "<C-R>+";
             }
 

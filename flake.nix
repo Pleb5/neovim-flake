@@ -68,10 +68,9 @@
               -- Configure your AI providers here after running 'goose configure' in terminal
               providers = {
                 -- Example configurations:
-                -- openai = {
-                --   "gpt-4",
-                --   "gpt-3.5-turbo"
-                -- },
+                openai = {
+                  "claude-opus-4",
+                },
                 -- anthropic = {
                 --   "claude-3.5-sonnet",
                 --   "claude-3-opus"
@@ -80,9 +79,11 @@
                 --   "llama2",
                 --   "codellama"
                 -- }
-                openrouter = {
-                    "anthropic/claude-opus-4",
-                },
+                -- openrouter = {
+                --     "anthropic/claude-opus-4",
+                --     "openai/gpt-4.1",
+                --     "x-ai/grok-4",
+                -- },
               }
             })
 
@@ -208,8 +209,8 @@
 
             {
                 mode = "n";
-                key = "<leader>f";
-                action = "function() vim.lsp.buf.format() end)";
+                key = "<leader>lf";
+                action = "<cmd>lua vim.lsp.buf.format()<CR>";
             }
 
                     # diagnostic go to next
@@ -335,6 +336,98 @@
                 options = {
                     silent = true;
                     noremap = true;
+                };
+            }
+
+            # Gitsigns navigation
+            {
+                mode = "n";
+                key = "]c";
+                action = "<cmd>Gitsigns next_hunk<CR>";
+                options = {
+                    silent = true;
+                    desc = "Next git hunk";
+                };
+            }
+            {
+                mode = "n";
+                key = "[c";
+                action = "<cmd>Gitsigns prev_hunk<CR>";
+                options = {
+                    silent = true;
+                    desc = "Previous git hunk";
+                };
+            }
+            {
+                mode = "n";
+                key = "<leader>hs";
+                action = "<cmd>Gitsigns stage_hunk<CR>";
+                options = {
+                    silent = true;
+                    desc = "Stage hunk";
+                };
+            }
+            {
+                mode = "n";
+                key = "<leader>hr";
+                action = "<cmd>Gitsigns reset_hunk<CR>";
+                options = {
+                    silent = true;
+                    desc = "Reset hunk";
+                };
+            }
+            {
+                mode = "n";
+                key = "<leader>hS";
+                action = "<cmd>Gitsigns stage_buffer<CR>";
+                options = {
+                    silent = true;
+                    desc = "Stage buffer";
+                };
+            }
+            {
+                mode = "n";
+                key = "<leader>hu";
+                action = "<cmd>Gitsigns undo_stage_hunk<CR>";
+                options = {
+                    silent = true;
+                    desc = "Undo stage hunk";
+                };
+            }
+            {
+                mode = "n";
+                key = "<leader>hR";
+                action = "<cmd>Gitsigns reset_buffer<CR>";
+                options = {
+                    silent = true;
+                    desc = "Reset buffer";
+                };
+            }
+            {
+                mode = "n";
+                key = "<leader>hp";
+                action = "<cmd>Gitsigns preview_hunk<CR>";
+                options = {
+                    silent = true;
+                    desc = "Preview hunk";
+                };
+            }
+            {
+                mode = "n";
+                key = "<leader>hb";
+                action = "<cmd>lua require('gitsigns').blame_line{full=true}<CR>";
+                options = {
+                    silent = true;
+                    desc = "Blame line";
+                };
+            }
+            {
+                mode = "n";
+                key = "<leader>tb";
+                action = "<cmd>Gitsigns toggle_current_line_blame<CR>";
+                options = {
+                    silent = true;
+                    desc = "Toggle blame line";
                 };
             }
 
@@ -660,6 +753,7 @@
                 sources = [
                     {name = "path";}
                     {name = "nvim_lsp";}
+                    {name = "nvim_lsp_signature_help";}
                     {
                       name = "luasnip";
                       option = {
@@ -679,6 +773,24 @@
                     "<C-p>" = "cmp.mapping.select_prev_item(cmp_select)";
                     "<C-n>" = "cmp.mapping.select_next_item(cmp_select)";
                     "<C-Space>" = "cmp.mapping.complete()";
+                    "<C-e>" = "cmp.mapping.abort()";
+                    "<C-f>" = "cmp.mapping.scroll_docs(4)";
+                    "<C-b>" = "cmp.mapping.scroll_docs(-4)";
+                };
+                
+                experimental = {
+                    ghost_text = true;
+                };
+                
+                window = {
+                    documentation = {
+                        border = "rounded";
+                        winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None";
+                    };
+                    completion = {
+                        border = "rounded";
+                        winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None";
+                    };
                 };
             };
         };
@@ -691,12 +803,104 @@
 
         plugins.web-devicons.enable = true;
 
-        /*
-        plugins.coq-nvim = {
+        # Show keybindings help
+        plugins.which-key = {
             enable = true;
-            autoStart = true;
+            settings = {
+                delay = 200;
+                expand = 1;
+                notify = false;
+                preset = false;
+                replace = {
+                    desc = [
+                        ["<space>" "SPACE"]
+                        ["<leader>" "SPACE"]
+                        ["<[cC][rR]>" "RETURN"]
+                        ["<[tT][aA][bB]>" "TAB"]
+                        ["<[bB][sS]>" "BACKSPACE"]
+                    ];
+                };
+            };
         };
-        */
+
+        # Auto-pairs for brackets and quotes
+        plugins.nvim-autopairs = {
+            enable = true;
+            settings = {
+                disable_filetype = [ "TelescopePrompt" "vim" ];
+                check_ts = true;
+                fast_wrap = {
+                    map = "<M-e>";
+                    chars = [ "{" "[" "(" "\"" "'" ];
+                    pattern = "[=[[%'%\"%)%>%]%)%}%,]]=]";
+                    offset = 0;
+                    end_key = "$";
+                    keys = "qwertyuiopzxcvbnmasdfghjkl";
+                    check_comma = true;
+                    highlight = "Search";
+                    highlight_grey = "Comment";
+                };
+            };
+        };
+
+        # Git signs in the gutter
+        plugins.gitsigns = {
+            enable = true;
+            settings = {
+                current_line_blame = false;
+                current_line_blame_opts = {
+                    virt_text = true;
+                    virt_text_pos = "eol";
+                    delay = 1000;
+                };
+                signcolumn = true;
+                numhl = false;
+                linehl = false;
+                word_diff = false;
+                watch_gitdir = {
+                    interval = 1000;
+                    follow_files = true;
+                };
+                attach_to_untracked = true;
+                signs = {
+                    add = { text = "│"; };
+                    change = { text = "│"; };
+                    delete = { text = "_"; };
+                    topdelete = { text = "‾"; };
+                    changedelete = { text = "~"; };
+                    untracked = { text = "┆"; };
+                };
+            };
+        };
+
+        # LSP signature help
+        plugins.lsp-signature = {
+            enable = true;
+            settings = {
+                bind = true;
+                handler_opts = {
+                    border = "rounded";
+                };
+                hint_enable = true;
+                hint_prefix = "🐦 ";
+                hint_scheme = "String";
+                hi_parameter = "LspSignatureActiveParameter";
+                max_height = 12;
+                max_width = 80;
+                transparency = null;
+                toggle_key = "<M-x>";
+                floating_window = true;
+                floating_window_above_cur_line = true;
+                timer_interval = 200;
+                always_trigger = false;
+                auto_close_after = null;
+                extra_trigger_chars = [ "(" "," ];
+                zindex = 200;
+                padding = " ";
+                shadow_blend = 36;
+                shadow_guibg = "Black";
+            };
+        };
 
         # Debugging
         #plugins.dap.enable = true;

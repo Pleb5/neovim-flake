@@ -3,11 +3,19 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     flake-utils.url = "github:numtide/flake-utils";
+
     nixvim.url = "github:nix-community/nixvim";
+
+    goose-nvim = {
+        url = "github:azorng/goose.nvim";
+        flake = false;
+    };
+
   };
 
-  outputs = { self, nixpkgs, flake-utils, nixvim }:
+  outputs = { self, nixpkgs, flake-utils, nixvim, goose-nvim }:
 
     let
         # Configure Neovim
@@ -22,6 +30,59 @@
             vim.keymap.set("n", "<leader>rn", function()
                     return ":IncRename " .. vim.fn.expand("<cword>")
             end, { expr = true })
+
+            -- Setup goose.nvim
+            require('goose').setup({
+              prefered_picker = 'telescope',
+              
+              default_global_keymaps = true,
+              
+              keymap = {
+                global = {
+                  toggle = '<leader>gg',                    -- Open/close goose
+                  open_input = '<leader>gi',                -- Open input window
+                  open_input_new_session = '<leader>gI',    -- Open input with new session
+                  open_output = '<leader>go',               -- Open output window
+                  open_history = '<leader>gh',              -- Open session history
+                  goose_ask = '<leader>ga',                 -- Quick ask
+                  goose_ask_visual = '<leader>ga',          -- Ask about visual selection
+                  select_file_mention = '<leader>gf',       -- Toggle file mention
+                  switch_model = '<leader>gm',              -- Switch between models
+                  stop_goose = '<leader>gS',                -- Stop current goose operation (changed from gs to avoid conflict with fugitive)
+                  toggle_pane = '<tab>',                    -- Toggle between panes
+                  prev_prompt_history = '<up>',             -- Previous prompt in history
+                  next_prompt_history = '<down>'            -- Next prompt in history
+                }
+              },
+              
+              ui = {
+                window_width = 0.35,      -- Width as percentage of editor
+                input_height = 0.15,      -- Input height as percentage of window
+                fullscreen = false,       -- Start in fullscreen mode
+                layout = "right",         -- "center" or "right"
+                floating_height = 0.8,    -- Height for center layout
+                display_model = true,     -- Show model name in winbar
+                display_goose_mode = true -- Show mode in winbar
+              },
+              
+              -- Configure your AI providers here after running 'goose configure' in terminal
+              providers = {
+                -- Example configurations:
+                -- openai = {
+                --   "gpt-4",
+                --   "gpt-3.5-turbo"
+                -- },
+                -- anthropic = {
+                --   "claude-3.5-sonnet",
+                --   "claude-3-opus"
+                -- },
+                -- ollama = {
+                --   "llama2",
+                --   "codellama"
+                -- }
+              }
+            })
+
             '';
 
         # Neovim basic options
@@ -339,6 +400,48 @@
             };
         };
 
+        plugins.render-markdown = {
+            enable = true;
+
+            settings = {
+                render_modes = true;
+                signs.enabled = false;
+                bullet = {
+                    icons = [
+                        "◆ "
+                        "• "
+                        "• "
+                    ];
+                    right_pad = 1;
+                };
+                heading = {
+                    sign = false;
+                    width = "full";
+                    position = "inline";
+                    border = true;
+                    icons = [
+                        "1 "
+                        "2 "
+                        "3 "
+                        "4 "
+                        "5 "
+                        "6 "
+                    ];
+                };
+                code = {
+                    sign = false;
+                    width = "block";
+                    position = "right";
+                    language_pad = 2;
+                    left_pad = 2;
+                    right_pad = 2;
+                    border = "thick";
+                    above = " ";
+                    below = " ";
+                };
+            };
+        };
+
         # plugins.ts-autotag = {
         #     enable = true;
         #     filetypes = [
@@ -605,7 +708,22 @@
 
     in
         flake-utils.lib.eachDefaultSystem (system: let
-            nvim = nixvim.legacyPackages.${system}.makeNixvim config;
+            pkgs = nixpkgs.legacyPackages.${system};
+
+            goose-nvim-plugin = pkgs.vimUtils.buildVimPlugin {
+                pname = "goose.nvim";
+                version = "latest";
+                src = goose-nvim;
+                doCheck = false;
+            };
+
+            configWithPlugins = config // {
+              extraPlugins = [
+                goose-nvim-plugin
+              ];
+            };
+
+            nvim = nixvim.legacyPackages.${system}.makeNixvim configWithPlugins;
         in {
             packages = {
                 inherit nvim;

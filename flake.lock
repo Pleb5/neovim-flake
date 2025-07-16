@@ -140,6 +140,22 @@
         "type": "github"
       }
     },
+    "goose-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1750142537,
+        "narHash": "sha256-u7NabwnlwNixc0Axu50Kr81TkHMNbWKvCTTsPQascbA=",
+        "owner": "azorng",
+        "repo": "goose.nvim",
+        "rev": "ada7651562bbcd0601d08896741cf7b4862178a8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "azorng",
+        "repo": "goose.nvim",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -294,6 +310,7 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
+        "goose-nvim": "goose-nvim",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim"
       }

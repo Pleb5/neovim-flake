@@ -80,6 +80,9 @@
                 --   "llama2",
                 --   "codellama"
                 -- }
+                openrouter = {
+                    "anthropic/claude-opus-4",
+                },
               }
             })
 

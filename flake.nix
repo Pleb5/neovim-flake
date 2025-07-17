@@ -70,6 +70,11 @@
                 -- Example configurations:
                 openai = {
                   "claude-opus-4",
+                  "claude-sonnet-4",
+                  "grok-4",
+                  "gpt-4.1-mini",
+                  "gpt-4.1",
+
                 },
                 -- anthropic = {
                 --   "claude-3.5-sonnet",
@@ -538,49 +543,6 @@
             };
         };
 
-        # plugins.ts-autotag = {
-        #     enable = true;
-        #     filetypes = [
-        #       "html"
-        #       "javascript"
-        #       "typescript"
-        #       "javascriptreact"
-        #       "typescriptreact"
-        #       "svelte"
-        #       "vue"
-        #       "tsx"
-        #       "jsx"
-        #       "rescript"
-        #       "xml"
-        #       "php"
-        #       "markdown"
-        #       "astro"
-        #       "glimmer"
-        #       "handlebars"
-        #       "hbs"
-        #     ];
-        #     skipTags = [
-        #       "area"
-        #       "base"
-        #       "br"
-        #       "col"
-        #       "command"
-        #       "embed"
-        #       "hr"
-        #       "img"
-        #       "slot"
-        #       "input"
-        #       "keygen"
-        #       "link"
-        #       "meta"
-        #       "param"
-        #       "source"
-        #       "track"
-        #       "wbr"
-        #       "menuitem"
-        #     ];
-        # };
-
         # Enables fuzzy finding through treesitter, LSP...
         plugins.telescope = {
             enable = true;
@@ -827,7 +789,8 @@
         plugins.nvim-autopairs = {
             enable = true;
             settings = {
-                disable_filetype = [ "TelescopePrompt" "vim" ];
+                disable_filetype = [ "TelescopePrompt" "vim" "spectre_panel" ];
+                disable_in_visualblock = false;
                 check_ts = true;
                 fast_wrap = {
                     map = "<M-e>";
@@ -839,6 +802,18 @@
                     check_comma = true;
                     highlight = "Search";
                     highlight_grey = "Comment";
+                };
+            };
+        };
+
+        # Auto tag completion for HTML/JSX
+        plugins.ts-autotag = {
+            enable = true;
+            settings = {
+                opts = {
+                    enable_close = true;
+                    enable_rename = true;
+                    enable_close_on_slash = false;
                 };
             };
         };
@@ -927,6 +902,11 @@
             configWithPlugins = config // {
               extraPlugins = [
                 goose-nvim-plugin
+              ];
+              
+              # Bundle ripgrep with neovim for telescope
+              extraPackages = with pkgs; [
+                ripgrep
               ];
             };
 

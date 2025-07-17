@@ -49,7 +49,7 @@
                   select_file_mention = '<leader>gf',       -- Toggle file mention
                   switch_model = '<leader>gm',              -- Switch between models
                   stop_goose = '<leader>gS',                -- Stop current goose operation (changed from gs to avoid conflict with fugitive)
-                  toggle_pane = '<tab>',                    -- Toggle between panes
+                  toggle_pane = '<leader>gp',              -- Toggle between panes (changed from <tab> to avoid conflict with <C-i>)
                   prev_prompt_history = '<up>',             -- Previous prompt in history
                   next_prompt_history = '<down>'            -- Next prompt in history
                 }

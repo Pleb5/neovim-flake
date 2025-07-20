@@ -890,7 +890,12 @@
 
     in
         flake-utils.lib.eachDefaultSystem (system: let
-            pkgs = nixpkgs.legacyPackages.${system};
+            pkgs = import nixpkgs {
+                inherit system;
+                config = {
+                    allowUnfree = true;
+                };
+            };
 
             goose-nvim-plugin = pkgs.vimUtils.buildVimPlugin {
                 pname = "goose.nvim";
@@ -904,9 +909,10 @@
                 goose-nvim-plugin
               ];
               
-              # Bundle ripgrep with neovim for telescope
+              # Bundle ripgrep and goose
               extraPackages = with pkgs; [
                 ripgrep
+                goose-cli
               ];
             };
 

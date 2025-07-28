@@ -436,6 +436,57 @@
                 };
             }
 
+            # Harpoon
+            {
+                mode = "n";
+                key = "<leader>a";
+                action.__raw = "function() require'harpoon':list():add() end";
+                options = {
+                    silent = true;
+                    desc = "Harpoon add file";
+                };
+            }
+
+            {
+                mode = "n";
+                key = "<C-e>";
+                action.__raw = "function() require'harpoon'.ui:toggle_quick_menu(require'harpoon':list()) end";
+                options = {
+                    silent = true;
+                    desc = "Harpoon list";
+                };
+            }
+
+            {
+                mode = "n";
+                key = "<C-h>";
+                action.__raw = "function() require'harpoon':list():select(1) end";
+                options = {
+                    silent = true;
+                    desc = "Harpoon select 1";
+                };
+            }
+
+            {
+                mode = "n";
+                key = "<C-t>";
+                action.__raw = "function() require'harpoon':list():select(2) end";
+                options = {
+                    silent = true;
+                    desc = "Harpoon select 2";
+                };
+            }
+
+            {
+                mode = "n";
+                key = "<C-m>";
+                action.__raw = "function() require'harpoon':list():select(3) end";
+                options = {
+                    silent = true;
+                    desc = "Harpoon select 3";
+                };
+            }
+
     # ----------------------------------------------------------------
 
         # Visual mode
@@ -562,23 +613,6 @@
                 */	
             };
         };
-
-        # Telescope extension
-        plugins.harpoon = {
-            enable = true;
-
-            keymaps = {
-
-                addFile = "<leader>a";
-                toggleQuickMenu = "<C-e>";
-                navFile = {
-                    "1" = "<C-h>";
-                    "2" = "<C-t>";
-                    "3" = "<C-m>";
-                };
-            };
-        };
-
 
         # Git integration
         plugins.fugitive = {

@@ -31,6 +31,55 @@
                     return ":IncRename " .. vim.fn.expand("<cword>")
             end, { expr = true })
 
+            -- Function to copy last error message to clipboard
+            function CopyLastError()
+                local error_msg = vim.v.errmsg
+                if error_msg and error_msg ~= "" then
+                    vim.fn.setreg('+', error_msg)
+                    vim.notify("Error message copied to clipboard: " .. error_msg, vim.log.levels.INFO)
+                else
+                    vim.notify("No error message found", vim.log.levels.WARN)
+                end
+            end
+
+            -- Function to copy last message from :messages
+            function CopyLastMessage()
+                local messages = vim.fn.execute('messages')
+                local lines = vim.split(messages, '\n')
+                local last_msg = ""
+                
+                -- Find the last non-empty line
+                for i = #lines, 1, -1 do
+                    if lines[i] and lines[i] ~= "" then
+                        last_msg = lines[i]
+                        break
+                    end
+                end
+                
+                if last_msg ~= "" then
+                    vim.fn.setreg('+', last_msg)
+                    vim.notify("Last message copied to clipboard: " .. last_msg, vim.log.levels.INFO)
+                else
+                    vim.notify("No messages found", vim.log.levels.WARN)
+                end
+            end
+
+            -- Function to copy current diagnostic message
+            function CopyDiagnosticMessage()
+                local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line('.') - 1 })
+                if #diagnostics > 0 then
+                    local messages = {}
+                    for _, diagnostic in ipairs(diagnostics) do
+                        table.insert(messages, diagnostic.message)
+                    end
+                    local combined = table.concat(messages, '\n')
+                    vim.fn.setreg('+', combined)
+                    vim.notify("Diagnostic message(s) copied to clipboard", vim.log.levels.INFO)
+                else
+                    vim.notify("No diagnostics on current line", vim.log.levels.WARN)
+                end
+            end
+
             -- Setup goose.nvim
             require('goose').setup({
               prefered_picker = 'telescope',
@@ -43,15 +92,13 @@
                   open_input = '<leader>gi',                -- Open input window
                   open_input_new_session = '<leader>gI',    -- Open input with new session
                   open_output = '<leader>go',               -- Open output window
-                  open_history = '<leader>gh',              -- Open session history
-                  goose_ask = '<leader>ga',                 -- Quick ask
-                  goose_ask_visual = '<leader>ga',          -- Ask about visual selection
-                  select_file_mention = '<leader>gf',       -- Toggle file mention
-                  switch_model = '<leader>gm',              -- Switch between models
-                  stop_goose = '<leader>gS',                -- Stop current goose operation (changed from gs to avoid conflict with fugitive)
-                  toggle_pane = '<leader>gp',              -- Toggle between panes (changed from <tab> to avoid conflict with <C-i>)
-                  prev_prompt_history = '<up>',             -- Previous prompt in history
-                  next_prompt_history = '<down>'            -- Next prompt in history
+                  select_session = '<leader>gh',            -- Select and load a session
+                  configure_provider = '<leader>gm',        -- Switch between models
+                  stop = '<leader>gS',                      -- Stop current goose operation
+                  toggle_pane = '<leader>gp',              -- Toggle between panes
+                  prev_history = '<up>',                    -- Previous prompt in history
+                  next_history = '<down>',                  -- Next prompt in history
+                  toggle_fullscreen = '<leader>gF'         -- Toggle fullscreen mode
                 }
               },
               
@@ -259,6 +306,39 @@
                 mode = "n";
                 key = "<leader>e";
                 action = "<cmd>lua vim.diagnostic.open_float()<CR>";
+            }
+
+            # Copy last error message to clipboard
+            {
+                mode = "n";
+                key = "<leader>ye";
+                action = "<cmd>lua CopyLastError()<CR>";
+                options = {
+                    silent = false;
+                    desc = "Copy last error message to clipboard";
+                };
+            }
+
+            # Copy last message from :messages
+            {
+                mode = "n";
+                key = "<leader>ym";
+                action = "<cmd>lua CopyLastMessage()<CR>";
+                options = {
+                    silent = false;
+                    desc = "Copy last message to clipboard";
+                };
+            }
+
+            # Copy diagnostic message on current line
+            {
+                mode = "n";
+                key = "<leader>yd";
+                action = "<cmd>lua CopyDiagnosticMessage()<CR>";
+                options = {
+                    silent = false;
+                    desc = "Copy diagnostic message to clipboard";
+                };
             }
 
             # In insert-and-command-line mode this pastes text from register "

@@ -18,7 +18,6 @@
   outputs = { self, nixpkgs, flake-utils, nixvim, goose-nvim }:
 
     let
-        # Configure Neovim
         config = {
         
         globals.mapleader = " ";

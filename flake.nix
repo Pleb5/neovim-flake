@@ -160,7 +160,6 @@
         };
 
         keymaps = [
-            # Current Window width - or +
             # Horizontally
             {
                 mode = "n";

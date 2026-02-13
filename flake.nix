@@ -321,6 +321,7 @@
                     desc = "Copy last message to clipboard";
                 };
             }
+# test comment
 
             # Copy diagnostic message on current line
             {

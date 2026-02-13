@@ -142,12 +142,9 @@
 
         # Neovim basic options
         opts = {
-            # Show line numbers
             number = true;
             relativenumber = true;
             scrolloff = 8;
-
-            # Tabs
 
             shiftwidth = 4;
             tabstop = 4;
